@@ -1,0 +1,31 @@
+--Introduction to SQL language--
+    SQL is a programming language designed to manage data stored in a relational database management system (RDBMS).
+    
+    SQL stands for the structured query language. It is pronounced as /ˈɛs kjuː ˈɛl/ or /ˈsiːkwəl/.
+    
+    SQL consists of a data definition language, data manipulation language, and a data control language.
+    
+    The data definition language deals with the schema creation and modification e.g., CREATE TABLE statement allows you to create a new table in the database and the ALTER TABLE statement changes the structure of an existing table.
+    The data manipulation language provides the constructs to query data such as the SELECT statement and to update the data such as INSERT, UPDATE, and DELETE statements.
+    The data control language consists of the statements that deal with the user authorization and security such as GRANT and REVOKE statements.
+--SQL Standard--
+    SQL was one of the first commercial database languages since 1970. Since then different database vendors implemented SQL in their products with some variations. To bring greater conformity between the vendors, the American Standards Institute (ANSI) published the first SQL standard in 1986.
+    
+    ANSI then updated the SQL standard in 1992, known as SQL92 and SQL2, and again in 1999 as SQL99 and SQL3. Every time, ANSI added new features and commands into the SQL language.
+    
+    The SQL Standard is now maintained by both ANSI and International Standards Organization as ISO/IEC 9075 standard. The latest release standard is SQL:2011.
+    
+    The SQL standard formalizes SQL syntax structures and behaviors across database products. It becomes even more important to the open-source databases such as MySQL and PostgreSQL where the RDBMS are developed mainly by the communities rather than big corporations.
+
+--SQL Dialects--
+    The community constantly requests new features and capabilities that do not exist in the SQL standard yet, therefore, even with the SQL standard in place, there are many SQL dialects in various database products.
+    
+    Because ANSI and ISO have not yet developed these important features, RDBMS vendors (or communities) are free to invent their own new syntax structure.
+    
+    The following are the most popular dialects of SQL:
+    
+    PL/SQL stands for procedural language/SQL. It is developed by Oracle for the Oracle Database.
+    Transact-SQL or T-SQL is developed by Microsoft for Microsoft SQL Server.
+    PL/pgSQL stands for Procedural Language/PostgreSQL that consists of SQL dialect and extensions implemented in PostgreSQL
+    MySQL has its own procedural language since version 5. Note that MySQL was acquired by Oracle.
+    In each tutorial, we will explain the SQL syntax structures and behaviors that are valid across the databases. We also will discuss the exceptions if they exist in a particular database
