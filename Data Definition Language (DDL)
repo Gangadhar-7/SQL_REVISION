@@ -1,0 +1,146 @@
+--Data Definition Language--
+
+         In SQL DDL commands are used to create and modify the structure of a database and database objects. 
+         These commands are CREATE, DROP, ALTER, TRUNCATE, and RENAME. Let us discuss these commands one at a time.
+
+         CREATE :
+
+               The syntax for create command is:
+               
+               For creating a database:
+
+                                    CREATE DATABASE database_name;
+
+               Creates a database named 'database_name'. Let us create our own database and table which we will use as a reference throughout this article:
+
+                                    CREATE DATABASE testdb;
+
+               For creating a table:
+
+                                    CREATE TABLE table_name(
+                                       column1 datatype,
+                                       column2 datatype,
+                                       .....
+                                       columnN datatype
+                                    );
+
+               This creates a new table with the name 'table_name' in our database. It will have N columns for each of the same datatypes as mentioned adjacent to it in the create syntax.
+
+               For instance:
+
+                                    CREATE TABLE my_table(
+                                        first_name varchar(20),
+                                        age INT
+                                    );
+
+               This creates an empty table. For clarity suppose we add an entry (row) in the column (as in the image) the result will be:
+
+                                    first_name	age
+                                    myFirstName	20
+         DROP :
+                                    
+                                    To drop a table:
+                                    
+                                    DROP TABLE table_name;
+
+                        deletes the table named 'table_name' if present.
+
+                        Suppose if we drop our my_table, the result is as:
+                        
+                        drop table my_table;
+                        
+                        Output:
+                        
+                        Query OK, 0 rows affected (0.01 sec)
+
+                        To drop a database:
+                        
+                        DROP DATABASE database_name;
+                        
+                        This removes the database named 'database_name' if present. Suppose we try this with our database, the result looks like this:
+                        
+                        drop database testdb;
+                        
+                        Output:
+
+                        Query OK, 0 rows affected (0.01 sec)
+
+         ALTER
+         
+                        Following is the syntax to alter the contents of a table:
+                        
+                                    ALTER TABLE table_name
+                                    ADD column_name column_definition;
+
+                           Let's try performing this operation on our table my_table:
+                           
+                           alter table my_table
+                           add column employed boolean;
+
+                           Output:
+                           
+                           | first_name  | age |
+                           |:-----------:|:---:|
+                           | myFirstName | 20  |
+
+
+                     In the above example, we are adding a column to our table. Apart from that, we can perform other operations such as dropping a column, modifying it, etc.
+                     
+                     To change the properties of a column such as its type, type capacity, add constraints, etc:
+
+                              ALTER TABLE table_name
+                              ALTER COLUMN column_name column_type;
+
+Lets try using it in our database:
+
+                              alter my_table modify column
+                              first_name varchar(25);
+                              
+                              Output:
+                              
+                              Query OK, 0 rows affected (0.01 sec)
+                              
+                              We changed the column first_name from data type varchar(20) to varchar(25).
+                              
+                              Similarly, we can drop a column using alter with the following syntax:
+
+                              ALTER TABLE table_name
+                              DROP COLUMN column_name;
+                              
+                              We can remove our column 'employed' as:
+                              
+                              alter table my_table
+                              drop column employed;
+                              
+                              Output:
+                              
+                              Query OK, 0 rows affected (0.01 sec)
+
+      TRUNCATE :
+
+               This command is similar to the drop table command. 
+               The only difference is that while the drop command removes the table as well as its contents, the truncate command only erases the contents of the table's contents and not the table itself. 
+               Let us take an example to be clearer:
+
+                              truncate table my_table;
+                              select * from my_table;
+
+               Output:
+               
+               Query OK, 0 rows affected (0.01 sec)
+               Empty set (0.00 sec)
+
+
+   RENAME :
+
+               This command is used to change the name of an existing table. The syntax is
+
+                              RENAME TABLE table_name TO table_name_new;
+
+               The following image shows how to rename our table from 'my_table' to 'some_table':
+
+                              rename table my_table to some_table;
+
+               Output:
+               
+               Query OK, 0 rows affected (0.01 sec)
