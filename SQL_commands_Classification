@@ -1,0 +1,443 @@
+Types of SQL Commands
+In this article on SQL basics, we study about following types of commands:
+
+DDL(Data Definition Language): To make/perform changes to the physical structure of any table residing inside a database, DDL is used. These commands when executed are auto-commit in nature and all the changes in the table are reflected and saved immediately.
+DML(Data Manipulation Language): Once the tables are created and the database is generated using DDL commands, manipulation inside those tables and databases is done using DML commands. The advantage of using DML commands is, that if in case any wrong changes or values are made, they can be changed and rolled back easily.
+DQL(Data Query Language): Data query language consists of only one command upon which data selection in SQL relies. The SELECT command in combination with other SQL clauses is used to retrieve and fetch data from databases/tables based on certain conditions applied by the user.
+DCL(Data Control Language): DCL commands as the name suggests manage the matters and issues related to the data controller in any database. DCL includes commands such as GRANT and REVOKE which mainly deal with the rights, permissions, and other controls of the database system.
+TCL(Transaction Control Language): Transaction Control Language as the name suggests manages the issues and matters related to the transactions in any database. They are used to roll back or commit the changes in the database.
+Data Definition Language
+In SQL DDL commands are used to create and modify the structure of a database and database objects. These commands are CREATE, DROP, ALTER, TRUNCATE, and RENAME. Let us discuss these commands one at a time.
+
+CREATE
+
+The syntax for create command is:
+
+For creating a database:
+
+CREATE DATABASE database_name;
+
+Creates a database named 'database_name'. Let us create our own database and table which we will use as a reference throughout this article:
+
+CREATE DATABASE testdb;
+
+For creating a table:
+
+CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   .....
+   columnN datatype
+);
+
+This creates a new table with the name 'table_name' in our database. It will have N columns for each of the same datatypes as mentioned adjacent to it in the create syntax.
+
+For instance:
+
+CREATE TABLE my_table(
+    first_name varchar(20),
+    age INT
+);
+
+This creates an empty table. For clarity suppose we add an entry (row) in the column (as in the image) the result will be:
+
+first_name	age
+myFirstName	20
+DROP
+
+To drop a table:
+
+DROP TABLE table_name;
+
+deletes the table named 'table_name' if present.
+
+Suppose if we drop our my_table, the result is as:
+
+drop table my_table;
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+
+To drop a database:
+
+DROP DATABASE database_name;
+
+This removes the database named 'database_name' if present. Suppose we try this with our database, the result looks like this:
+
+drop database testdb;
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+
+ALTER
+
+Following is the syntax to alter the contents of a table:
+
+ALTER TABLE table_name
+ADD column_name column_definition;
+
+Let's try performing this operation on our table my_table:
+
+alter table my_table
+add column employed boolean;
+
+Output:
+
+| first_name  | age |
+|:-----------:|:---:|
+| myFirstName | 20  |
+
+
+In the above example, we are adding a column to our table. Apart from that, we can perform other operations such as dropping a column, modifying it, etc.
+
+To change the properties of a column such as its type, type capacity, add constraints, etc:
+
+ALTER TABLE table_name
+ALTER COLUMN column_name column_type;
+
+Lets try using it in our database:
+
+alter my_table modify column
+first_name varchar(25);
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+
+We changed the column first_name from data type varchar(20) to varchar(25).
+
+Similarly, we can drop a column using alter with the following syntax:
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+We can remove our column 'employed' as:
+
+alter table my_table
+drop column employed;
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+
+TRUNCATE
+
+This command is similar to the drop table command. The only difference is that while the drop command removes the table as well as its contents, the truncate command only erases the contents of the table's contents and not the table itself. Let us take an example to be clearer:
+
+truncate table my_table;
+select * from my_table;
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+Empty set (0.00 sec)
+
+As shown in the image above, truncate has removed the contents of the table. The table, though now empty, still exists. Think of truncating a table as emptying it rather than deleting it.
+
+RENAME
+
+This command is used to change the name of an existing table. The syntax is
+
+RENAME TABLE table_name TO table_name_new;
+
+The following image shows how to rename our table from 'my_table' to 'some_table':
+
+rename table my_table to some_table;
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+
+Explore free courses by our top instructors
+View All
+Java Course - Mastering the FundamentalsTARUN LUTHRA
+Java Course - Mastering the Fundamentals
+61k+ enrolled
+Python Certification Course: Master the essentialsRAHUL JANGHU
+Python Certification Course: Master the essentials
+48k+ enrolled
+C++ Course: Learn the EssentialsPRATEEK NARANG
+C++ Course: Learn the Essentials
+32k+ enrolled
+35,262+ learners have attended these Courses.
+Data Manipulation Language
+DML is used for inserting, deleting, and updating data in a database. It is used to retrieve and manipulate data in a relational database. It includes INSERT, UPDATE, and DELETE. Let's discuss these commands one at a time.
+
+INSERT
+
+Insert statement is used to insert data in a SQL table. Using the Insert query, we can add one or more rows to the table. Following is the syntax of the MySQL INSERT Statement.
+
+INSERT INTO table_name
+(attribute1, attribute2, ...)
+VALUES(val1, val2, ...)
+
+Let's take a quick instance for understanding this better. Suppose that we need to insert 2 rows {"myName3", 2, true} and {"myName4", 28, false}. This is how we would accomplish that:
+
+insert into my_table
+values("myName3", 5, false),
+("myName4", 51, true);
+
+Output:
+
+Query OK, 2 rows affected (0.01 sec)
+
+We don't necessarily have to include all column values. We can for example omit the age column as shown below:
+
+insert into my_table
+(first_name, employed)
+values("myName4", true);
+
+Output:
+
+Query OK, 1 rows affected (0.01 sec)
+
+This is also a fine example of how we insert just one row.
+
+UPDATE
+
+This command is used to make changes to the data in the table. Its syntax is:
+
+UPDATE table_name
+SET column1 = val1,
+column2 = val2,
+...
+WHERE CLAUSE;
+
+How about we update the employment status of myName of age 12 which has it as NULL? This is how we achieve it:
+
+update my_table
+set employed=true
+where age=12;
+
+Output:
+
+Query OK, 1 rows affected (0.01 sec)
+
+Let's batch-update all our rows without filtering them on any condition. Suppose we want to increment the value of every row in the age column. The following query is what we need:
+
+update my_table
+set age = age + 1;
+
+Output:
+
+Query OK, 5 rows affected (0.01 sec)
+
+DELETE
+
+This command is used to remove a row from a table. the syntax for delete is
+
+DELETE FROM table_name
+WHERE CLAUSE;
+
+The where clause is optional. To delete the row with first_name "myName5 run this query:
+
+delete from my_table
+where first_name = "myName5";
+
+Output:
+
+Query OK, 0 rows affected (0.01 sec)
+
+It is to be noted that omitting the use where clause results in the emptying of the table just as truncating does.
+
+Data Query Language
+DQL commands are used for fetching data from a relational database. They perform read-only queries of data. The only command, 'SELECT' is equivalent to the projection operation in relational algebra. It command selects the attribute based on the condition described by the WHERE clause and returns them.
+
+Select is one of the most important SQL commands. It is used to retrieve data from a database. One can fetch either the entire table or some data according to specified rules. The data returned is stored in a result table. With the SELECT clause of a SELECT command statement, we specify the columns that we want to be displayed in the query result and, optionally, which column headings we prefer to see above the result table.
+
+The select clause is the first clause and is one of the last clauses of the select statement that the database server evaluates. The reason for this is that before we can determine what to include in the final result set, we need to know all of the possible columns that could be included in the final result set.
+
+The syntax for the SELECT statement is:
+
+SELECT column1 as c1
+column2 as c2
+...
+from table_name;
+
+'as c1' implies that the result table column that holds the data from column1 of the original table, will be identified as 'c1' and its usage is optional.
+
+To get the age of all our rows, we would run the first of the following query:
+
+select age as myAge
+from my_table;
+
+select * from my_table;
+
+Output:
+
+
+| myAge |
+| ----- |
+|  47   |
+
+| first_name | age | employed |
+| -------- | -------- | -------- |
+| myName     | 47     | 1     |
+
+
+Notice something weird in the second query?
+
+Firstly there's an asterisk in place of specifying a column. What it does is signal to the DBMS that the user has requested all the data in the table, i.e. entry of every column for every row. Therefore the entire table is returned as it is.
+
+Secondly, we haven't used the operator here. thus the returned table columns have retained their original labels.
+
+We can select data as per our requirements by filtering. We have an array of methods, operators, functions, etc for this purpose. Suppose we need to fetch only those rows which qualify a certain criterion. We use a 'where' clause to fulfill this.
+
+Assume the present state of our table is as shown in the image below.
+
+select * from my_table;
+
+Output:
+
+
+| first_name | age | employed |
+| -------- | -------- | -------- |
+| myName     | 47     | 1     |
+| maName1 | 10 | 0 |
+| myName2 | 20 | 0 |
+| myName3 | 32 | 1 |
+
+
+Let's say that we need to fetch all rows where the age is strictly greater than 20. The query that we need is as follows:
+
+select * from
+my_table where age>20;
+
+Output:
+
+
+| first_name | age | employed |
+| -------- | -------- | -------- |
+| myName     | 47     | 1     |
+| myName2 | 32 | 1 |
+
+
+yes; it works!
+
+To extract all the rows where the name matches a certain pattern we use the 'like' operator. The following snippet shows its action:
+
+select * from my_table
+where first_name like "myName_";
+
+Output:
+
+
+| first_name | age | employed |
+| -------- | -------- | -------- |
+| myName0     | 10     | 1     |
+| maName1 | 10 | 0 |
+| myName2 | 20 | 0 |
+
+
+'like' is an operator used for pattern matching. It uses two special characters embedded in the string to be matched; The percent sign '%' represents zero, one, or any number of characters, while the underscore sign '_' represents a single character.
+
+In the previous example, we used underscore, and therefore all rows except the first were returned because 'myName_' implies a matching string of the form 'myName' + an additional character. The last 3 strings are of this form and hence are matched, unlike the first one which does not have any additional character present at last.
+
+Similarly, we can obtain all the rows in the first_name field which ends with zero ('0').
+
+select * from my_table
+where first_name like "%0";
+
+Output:
+
+
+| first_name | age | employed |
+| -------- | -------- | -------- |
+| myName0     | 10     | 0     |
+
+
+Data Control Language
+DCL is used to access the stored data. It is used to revoke and grant the user the required access to a database. In the database, this language does not have the feature of rollback. It is a part of the structured query language (SQL).
+
+It helps in controlling access to information stored in a database. It complements the data manipulation language and the data definition language. It is the simplest of three commands.
+
+It provides the administrators, to remove and set database permissions to desired users as needed. These commands are employed to grant, remove and deny permissions to users for retrieving and manipulating a database. There are two relevant commands under this category: grant and revoke.
+
+GRANT
+
+GRANT is a command used to provide access or privileges on the database objects to the users.
+
+SYNTAX
+
+GRANT PRIVILEGES
+ON OBJECT
+TO USER;
+
+grant-command-types
+
+SELECT:
+
+To grant Select Privilege to a table named “tableName", the user name is "userName", and the following GRANT statement should be executed.
+
+GRANT SELECT
+ON tableName
+TO 'userName'@'localhost';
+
+Granting multiple privileges to a user:
+
+To grant multiple Privileges to a user named “username" in table “tableName”, the following GRANT statement should be executed:
+
+GRANT SELECT, INSERT, DELETE, UPDATE
+ON tableName
+TO 'userName'@'localhost';
+
+Granting all the privileges to a user:
+
+To Grant all the privileges to a user named “userName” in a table “tableName”, the following Grant statement should be executed.
+
+GRANT ALL
+ON tableName
+TO 'userName'@'localhost';
+
+Granting a privilege to all users:
+
+To Grant a specific privilege to all the users in a table “tableName" this Grant statement should be executed.
+
+GRANT SELECT
+ON tableName
+TO '*'@'localhost';
+
+REVOKE
+
+Once you have granted privileges, you may need to revoke some or all of these privileges. To do this, you can run a revoke command. You can revoke any combination of SELECT, INSERT, UPDATE, DELETE, REFERENCES, ALTER, or ALL.
+
+REVOKE privileges
+ON object
+FROM user;
+
+Object is the name of the database object that you are revoking privileges for. In the case of revoking privileges on a table, this would be the table name. Username of the user that will have these privileges revoked.
+
+Suppose we need to revoke delete permission for the 'tableName' table' from a user named 'userNamed', the following would be the query.
+
+REVOKE DELETE
+ON tableName
+FROM userName;
+
+To remove every permission use 'ALL'.
+
+REVOKE ALL
+ON tableName
+FROM userName;
+
+Transaction Control Language
+TCL includes statements that are used to manage the changes that are made from DML statements. It enhances the transactional nature of SQL. The TCL commands in SQL are:
+
+COMMIT: It's a SQL command used in the transaction tables or database to make the current transaction or database statement permanent. It shows the successful completion of a transaction. If we have successfully executed the transaction statement or a simple database query, we want to make the changes permanent. We need to perform the commit command to save the changes, and these changes become permanent for all users. Furthermore, once the commit command is executed in the database, we cannot regain its previous states in which it was earlier before the execution of the first statement.
+
+SYNTAX
+
+commit;
+
+ROLLBACK: Undoes any changes made to the database. ROLLBACK is the SQL command that is used for reverting changes performed by a transaction. When a ROLLBACK command is issued it reverts all the changes since the last COMMIT or ROLLBACK.
+
+SYNTAX
+
+ROLLBACK;
+
+SAVEPOINT: This command creates a point in your transaction to which you can roll back. It is a command in SQL that is used with the rollback command. It is a command in Transaction Control Language that is used to mark the transaction in a table.
+
+SYNTAX
+
+SAVEPOINT some_name;
